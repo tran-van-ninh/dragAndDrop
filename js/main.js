@@ -19,14 +19,15 @@ targetElementList.forEach(target =>{
     });
 })
 
-boxElement.forEach(element =>{
-    element.addEventListener("dragover", function(e){
+boxElement.forEach(box =>{
+    box.addEventListener("dragover", function(e){
         e.preventDefault();
-        this.appendChild(currentTarget);
     });
 
-    element.addEventListener("drop", function(e){
-        this.appendChild(currentTarget);
+    box.addEventListener("drop", function(e){
+        if(!box.querySelector(".target")){
+            this.appendChild(currentTarget);
+        }
     })
 })
 
