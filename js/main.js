@@ -2,27 +2,31 @@ window.$ = document.querySelector.bind(document);
 window.$$ = document.querySelectorAll.bind(document);
 
 let boxElement = $$(".box");
-let targetElement = $(".target");
+let targetElementList = $$(".target");
+let currentTarget = null;
 
 //drag over
 //drop over
 
-targetElement.addEventListener("dragstart", function(e){
-    this.classList.add("dragging");
+targetElementList.forEach(target =>{
+    target.addEventListener("dragstart", function(e){
+        this.classList.add("dragging");
+        currentTarget = this;
+    })
+    
+    target.addEventListener("dragend", function(e){
+        this.classList.remove("dragging");
+    });
 })
-
-targetElement.addEventListener("dragend", function(e){
-    this.classList.remove("dragging");
-});
 
 boxElement.forEach(element =>{
     element.addEventListener("dragover", function(e){
         e.preventDefault();
-        this.appendChild(targetElement);
+        this.appendChild(currentTarget);
     });
 
     element.addEventListener("drop", function(e){
-        this.appendChild(targetElement);
+        this.appendChild(currentTarget);
     })
 })
 
